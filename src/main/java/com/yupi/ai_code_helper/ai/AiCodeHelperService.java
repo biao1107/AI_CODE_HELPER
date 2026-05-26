@@ -1,11 +1,14 @@
 package com.yupi.ai_code_helper.ai;
 
+import com.yupi.ai_code_helper.ai.guardrail.SafeInputGuardrail;
 import dev.langchain4j.service.Result;
 import dev.langchain4j.service.SystemMessage;
+import dev.langchain4j.service.guardrail.InputGuardrails;
 
 
 import java.util.List;
 
+@InputGuardrails(SafeInputGuardrail.class)
 public interface AiCodeHelperService {
 
     @SystemMessage(fromResource = "system-prompt.txt")
