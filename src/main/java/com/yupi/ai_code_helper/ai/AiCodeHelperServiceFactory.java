@@ -1,5 +1,7 @@
 package com.yupi.ai_code_helper.ai;
 
+import com.yupi.ai_code_helper.ai.tools.InterviewQuestionTool;
+import dev.langchain4j.mcp.McpToolProvider;
 import dev.langchain4j.memory.chat.MessageWindowChatMemory;
 import dev.langchain4j.model.chat.ChatModel;
 import dev.langchain4j.rag.content.retriever.ContentRetriever;
@@ -15,6 +17,8 @@ public class AiCodeHelperServiceFactory {
 
     @Resource
     private ContentRetriever contentRetriever;
+    @Resource
+    private McpToolProvider   mcpToolProvider;
 
     @Bean
     public AiCodeHelperService aiCodeHelperService(){
@@ -26,6 +30,8 @@ public class AiCodeHelperServiceFactory {
                 .chatModel(qwenChatModel)
                 .chatMemory(chatMemory)//会话记忆
                 .contentRetriever(contentRetriever)//Rag 检索增强生成
+                .tools(new InterviewQuestionTool())//tool工具调用
+                .toolProvider(mcpToolProvider)//mcp工具调用
                 .build();
         return aiCodeHelperService;
     }
